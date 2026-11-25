@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agents": {
+    "english-learning-curator": {
+      "description": "Review English, propose evidence-based flashcards, and export approved cards to Anki",
+      "mode": "primary",
+      "model": "opencode/gpt-6.1-sol#high",
+      "system": "{file:agents/english-learning-curator.md}",
+      "permissions": [
+        { "action": "*", "resource": "*", "effect": "deny" },
+        { "action": "read", "resource": "{file:~/.config/agent-environment/workspace-scope}", "effect": "ask" },
+        { "action": "read", "resource": "README.md", "effect": "allow" },
+        { "action": "read", "resource": "flashcards.json", "effect": "allow" },
+        { "action": "read", "resource": "observations.json", "effect": "allow" },
+        { "action": "question", "resource": "*", "effect": "allow" },
+        { "action": "edit", "resource": "flashcards.json", "effect": "ask" },
+        { "action": "edit", "resource": "observations.json", "effect": "ask" },
+        { "action": "shell", "resource": "node export-anki.mjs", "effect": "allow" }
+      ]
+    }
+  }
+}
